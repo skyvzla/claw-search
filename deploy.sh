@@ -79,6 +79,10 @@ echo ""
 echo "📦 Step 3: Installing claw-search plugin..."
 openclaw plugins install .
 
+# Configure plugins.allow (OpenClaw 2026.2.19+)
+[ -f ~/.openclaw/openclaw.json ] && command -v jq &>/dev/null && \
+jq '.plugins.allow=(.plugins.allow//[]|.+["claw-search"]|unique)' ~/.openclaw/openclaw.json > /tmp/oc.tmp && mv /tmp/oc.tmp ~/.openclaw/openclaw.json
+
 echo -e "${GREEN}✅ Plugin installed${NC}"
 
 # Restart gateway
